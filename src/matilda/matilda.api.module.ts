@@ -7,10 +7,10 @@ import { MatildaApiUserService } from './modules/user/matilda-api-user.service';
 import { MatildaApiStudentService } from './modules/student/matilda-api-student.service';
 
 @Module({})
-export class MatildaModule {
+export class MatildaApiModule {
   register(options: MatildaApiModuleOptions): DynamicModule {
     return {
-      module: MatildaModule,
+      module: MatildaApiModule,
       imports: [ApiModule.register()],
       providers: [
         {
