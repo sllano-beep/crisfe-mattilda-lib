@@ -4,10 +4,10 @@ import { api } from '../../common/matilda.config';
 import { MATILDA_API_MODULE_OPTIONS } from '../../common/matilda.constants';
 import { MatildaApiModuleOptions } from '../../common/matilda.types';
 import { MatildaApiErrorHandler } from '../../utils/matilda.decorator';
-import { UserCreateRQ, UserCreateRS } from './common/matilda-api-user.types';
+import { CreateDiscountRQ } from './common/matilda-api-discount.type';
 
 @Injectable()
-export class MatildaApiUserService {
+export class MatildaApiDiscountService {
   constructor(
     @Inject(MATILDA_API_MODULE_OPTIONS)
     private readonly options: MatildaApiModuleOptions,
@@ -16,14 +16,14 @@ export class MatildaApiUserService {
 
   @MatildaApiErrorHandler()
   @CoreLogger()
-  async postRegister<T = any>(
+  async postDiscounts<T = any>(
     periodId: string,
-    payload: UserCreateRQ<T>,
-  ): Promise<UserCreateRS<T>> {
+    payload: CreateDiscountRQ<T>,
+  ): Promise<unknown> {
     const { campusId, apiKey, domain } = this.options;
-    const { base, users } = api;
-    const url = `${domain}${base}${users}?apidogToken=9_6ZYSNgvrTQa6QSvMC9m`;
-    return await this.apiService.post<UserCreateRQ<T>, UserCreateRS<T>>(
+    const { base, discounts } = api;
+    const url = `${domain}${base}${discounts}`;
+    return await this.apiService.post<CreateDiscountRQ<T>, unknown>(
       url,
       payload,
       {

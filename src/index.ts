@@ -17,3 +17,10 @@ export * from './matilda/modules/period/matilda-api-period.service';
 
 export * from './matilda/modules/student/common/matilda-api-student.types';
 export * from './matilda/modules/student/matilda-api-student.service';
+
+export * from './matilda/modules/program/common/matilda-api-program.types';
+export * from './matilda/modules/program/matilda-api-program.service';
+
+export * from './matilda/modules/discount/common/matilda-api-discount.enums';
+export * from './matilda/modules/discount/common/matilda-api-discount.type';
+export * from './matilda/modules/discount/matilda-api-discount.service';

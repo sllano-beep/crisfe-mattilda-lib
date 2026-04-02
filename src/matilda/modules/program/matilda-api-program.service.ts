@@ -4,10 +4,10 @@ import { api } from '../../common/matilda.config';
 import { MATILDA_API_MODULE_OPTIONS } from '../../common/matilda.constants';
 import { MatildaApiModuleOptions } from '../../common/matilda.types';
 import { MatildaApiErrorHandler } from '../../utils/matilda.decorator';
-import { UserCreateRQ, UserCreateRS } from './common/matilda-api-user.types';
+import { MatildaApiProgramRS } from './common/matilda-api-program.types';
 
 @Injectable()
-export class MatildaApiUserService {
+export class MatildaApiProgramService {
   constructor(
     @Inject(MATILDA_API_MODULE_OPTIONS)
     private readonly options: MatildaApiModuleOptions,
@@ -16,23 +16,16 @@ export class MatildaApiUserService {
 
   @MatildaApiErrorHandler()
   @CoreLogger()
-  async postRegister<T = any>(
-    periodId: string,
-    payload: UserCreateRQ<T>,
-  ): Promise<UserCreateRS<T>> {
+  async getSearch<T = any>(q?: string): Promise<MatildaApiProgramRS<T>> {
     const { campusId, apiKey, domain } = this.options;
-    const { base, users } = api;
-    const url = `${domain}${base}${users}?apidogToken=9_6ZYSNgvrTQa6QSvMC9m`;
-    return await this.apiService.post<UserCreateRQ<T>, UserCreateRS<T>>(
-      url,
-      payload,
-      {
-        headers: {
-          api_key: apiKey,
-          campusID: campusId,
-          periodID: periodId,
-        },
+    const { base, programs } = api;
+    const url = `${domain}${base}${programs}`;
+    return await this.apiService.get<MatildaApiProgramRS<T>>(url, {
+      headers: {
+        api_key: apiKey,
+        campusID: campusId,
       },
-    );
+      params: { q },
+    });
   }
 }

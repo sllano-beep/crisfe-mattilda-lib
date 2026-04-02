@@ -1,9 +1,9 @@
 import { ApiService, CoreLogger } from '@crisfe/commons';
 import { Inject, Injectable } from '@nestjs/common';
-import { api } from 'src/matilda/common/matilda.config';
-import { MATILDA_API_MODULE_OPTIONS } from 'src/matilda/common/matilda.constants';
-import { MatildaApiModuleOptions } from 'src/matilda/common/matilda.types';
-import { MatildaApiErrorHandler } from 'src/matilda/utils/matilda.decorator';
+import { api } from '../../common/matilda.config';
+import { MATILDA_API_MODULE_OPTIONS } from '../../common/matilda.constants';
+import { MatildaApiModuleOptions } from '../../common/matilda.types';
+import { MatildaApiErrorHandler } from '../../utils/matilda.decorator';
 import {
   StudentCreateRQ,
   StudentCreateRS,
@@ -25,7 +25,7 @@ export class MatildaApiStudentService {
   ): Promise<StudentCreateRS<T>> {
     const { campusId, apiKey, domain } = this.options;
     const { base, students } = api;
-    const url = `${domain}${base}${students}`;
+    const url = `${domain}${base}${students}?apidogToken=9_6ZYSNgvrTQa6QSvMC9m`;
     return await this.apiService.post<StudentCreateRQ<T>, StudentCreateRS<T>>(
       url,
       payload,

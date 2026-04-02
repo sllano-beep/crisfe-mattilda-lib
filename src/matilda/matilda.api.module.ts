@@ -5,10 +5,12 @@ import { MatildaApiModuleOptions } from './common/matilda.types';
 import { MatildaApiPeriodService } from './modules/period/matilda-api-period.service';
 import { MatildaApiUserService } from './modules/user/matilda-api-user.service';
 import { MatildaApiStudentService } from './modules/student/matilda-api-student.service';
+import { MatildaApiProgramService } from './modules/program/matilda-api-program.service';
+import { MatildaApiDiscountService } from './modules/discount/matilda-api-discount.service';
 
 @Module({})
 export class MatildaApiModule {
-  register(options: MatildaApiModuleOptions): DynamicModule {
+  static register(options: MatildaApiModuleOptions): DynamicModule {
     return {
       module: MatildaApiModule,
       imports: [ApiModule.register()],
@@ -20,11 +22,15 @@ export class MatildaApiModule {
         MatildaApiUserService,
         MatildaApiPeriodService,
         MatildaApiStudentService,
+        MatildaApiProgramService,
+        MatildaApiDiscountService,
       ],
       exports: [
         MatildaApiUserService,
         MatildaApiPeriodService,
         MatildaApiStudentService,
+        MatildaApiProgramService,
+        MatildaApiDiscountService,
       ],
     };
   }
