@@ -5,4 +5,5 @@ export const api = {
   periods: '/periods',
   programs: '/programs',
   discounts: '/discounts',
+  scholarships: '/scholarships',
 };

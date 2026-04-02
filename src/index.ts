@@ -24,3 +24,7 @@ export * from './matilda/modules/program/matilda-api-program.service';
 export * from './matilda/modules/discount/common/matilda-api-discount.enums';
 export * from './matilda/modules/discount/common/matilda-api-discount.type';
 export * from './matilda/modules/discount/matilda-api-discount.service';
+
+export * from './matilda/modules/scholarship/common/matilda-api-scholarship.enums';
+export * from './matilda/modules/scholarship/common/matilda-api-scholarship.type';
+export * from './matilda/modules/scholarship/matilda-api-scholarship.service';
