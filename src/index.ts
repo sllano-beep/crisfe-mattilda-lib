@@ -28,3 +28,7 @@ export * from './matilda/modules/discount/matilda-api-discount.service';
 export * from './matilda/modules/scholar-ship/common/matilda-api-scholarship.enums';
 export * from './matilda/modules/scholar-ship/common/matilda-api-scholarship.type';
 export * from './matilda/modules/scholar-ship/matilda-api-scholarship.service';
+
+export * from './matilda/modules/ledger/common/matilda-api-ledger.enums';
+export * from './matilda/modules/ledger/common/matilda-api-ledger.type';
+export * from './matilda/modules/ledger/matilda-api-ledger.service';

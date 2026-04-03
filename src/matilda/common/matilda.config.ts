@@ -6,4 +6,5 @@ export const api = {
   programs: '/programs',
   discounts: '/discounts',
   scholarships: '/scholarships',
+  ledger: '/ledger',
 };

@@ -8,6 +8,7 @@ import { MatildaApiStudentService } from './modules/student/matilda-api-student.
 import { MatildaApiProgramService } from './modules/program/matilda-api-program.service';
 import { MatildaApiDiscountService } from './modules/discount/matilda-api-discount.service';
 import { MatildaApiScholarshipService } from './modules/scholar-ship/matilda-api-scholarship.service';
+import { MatildaApiLedgerService } from './modules/ledger/matilda-api-ledger.service';
 
 @Module({})
 export class MatildaApiModule {
@@ -26,6 +27,7 @@ export class MatildaApiModule {
         MatildaApiProgramService,
         MatildaApiDiscountService,
         MatildaApiScholarshipService,
+        MatildaApiLedgerService,
       ],
       exports: [
         MatildaApiUserService,
@@ -34,6 +36,7 @@ export class MatildaApiModule {
         MatildaApiProgramService,
         MatildaApiDiscountService,
         MatildaApiScholarshipService,
+        MatildaApiLedgerService,
       ],
     };
   }
