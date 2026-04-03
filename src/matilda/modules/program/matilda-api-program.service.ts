@@ -4,7 +4,10 @@ import { api } from '../../common/matilda.config';
 import { MATILDA_API_MODULE_OPTIONS } from '../../common/matilda.constants';
 import { MatildaApiModuleOptions } from '../../common/matilda.types';
 import { MatildaApiErrorHandler } from '../../utils/matilda.decorator';
-import { MatildaApiProgramRS } from './common/matilda-api-program.types';
+import {
+  MatildaApiProgramRS,
+  ProgramSearch,
+} from './common/matilda-api-program.types';
 
 @Injectable()
 export class MatildaApiProgramService {
@@ -16,16 +19,18 @@ export class MatildaApiProgramService {
 
   @MatildaApiErrorHandler()
   @CoreLogger()
-  async getSearch<T = any>(q?: string): Promise<MatildaApiProgramRS<T>> {
+  async getSearch<T = any>(
+    params: ProgramSearch,
+  ): Promise<MatildaApiProgramRS<T>[]> {
     const { campusId, apiKey, domain } = this.options;
     const { base, programs } = api;
     const url = `${domain}${base}${programs}`;
-    return await this.apiService.get<MatildaApiProgramRS<T>>(url, {
+    return await this.apiService.get<MatildaApiProgramRS<T>[]>(url, {
       headers: {
         api_key: apiKey,
         campusID: campusId,
       },
-      params: { q },
+      params,
     });
   }
 }

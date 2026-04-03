@@ -22,7 +22,7 @@ export class MatildaApiUserService {
   ): Promise<UserCreateRS<T>> {
     const { campusId, apiKey, domain } = this.options;
     const { base, users } = api;
-    const url = `${domain}${base}${users}?apidogToken=9_6ZYSNgvrTQa6QSvMC9m`;
+    const url = `${domain}${base}${users}`;
     return await this.apiService.post<UserCreateRQ<T>, UserCreateRS<T>>(
       url,
       payload,

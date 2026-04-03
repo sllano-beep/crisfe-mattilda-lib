@@ -25,7 +25,7 @@ export class MatildaApiStudentService {
   ): Promise<StudentCreateRS<T>> {
     const { campusId, apiKey, domain } = this.options;
     const { base, students } = api;
-    const url = `${domain}${base}${students}?apidogToken=9_6ZYSNgvrTQa6QSvMC9m`;
+    const url = `${domain}${base}${students}`;
     return await this.apiService.post<StudentCreateRQ<T>, StudentCreateRS<T>>(
       url,
       payload,
