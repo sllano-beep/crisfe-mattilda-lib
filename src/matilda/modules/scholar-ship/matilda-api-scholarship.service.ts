@@ -9,6 +9,8 @@ import {
   ScholarshipSearch,
   ScholarshipSearchRS,
   CreateScholarshipRS,
+  ScholarshipSearch,
+  ScholarshipSearchRS,
 } from './common/matilda-api-scholarship.type';
 
 export class MatildaApiScholarshipHeaders {
@@ -60,6 +62,25 @@ export class MatildaApiScholarshipService {
         campusID: campusId,
         periodID: periodId,
       },
+    });
+  }
+
+  @MatildaApiErrorHandler()
+  @CoreLogger()
+  async getScholarships<T = any>(
+    params: ScholarshipSearch,
+    periodId: string,
+  ): Promise<ScholarshipSearchRS<T>> {
+    const { campusId, apiKey, domain } = this.options;
+    const { base, scholarships } = api;
+    const url = `${domain}${base}${scholarships}`;
+    return await this.apiService.get<ScholarshipSearchRS<T>>(url, {
+      headers: {
+        api_key: apiKey,
+        campusID: campusId,
+        periodID: periodId,
+      },
+      params,
     });
   }
 }
