@@ -4,7 +4,11 @@ import { api } from '../../common/matilda.config';
 import { MATILDA_API_MODULE_OPTIONS } from '../../common/matilda.constants';
 import { MatildaApiModuleOptions } from '../../common/matilda.types';
 import { MatildaApiErrorHandler } from '../../utils/matilda.decorator';
-import { CreateScholarshipRQ } from './common/matilda-api-scholarship.type';
+import {
+  CreateScholarshipRQ,
+  ScholarshipSearch,
+  ScholarshipSearchRS,
+} from './common/matilda-api-scholarship.type';
 
 export class MatildaApiScholarshipHeaders {
   campusID?: string;
@@ -17,6 +21,25 @@ export class MatildaApiScholarshipService {
     private readonly options: MatildaApiModuleOptions,
     private readonly apiService: ApiService,
   ) {}
+
+  @MatildaApiErrorHandler()
+  @CoreLogger()
+  async getScholarships<T = any>(
+    params: ScholarshipSearch,
+    periodId: string,
+  ): Promise<ScholarshipSearchRS<T>> {
+    const { campusId, apiKey, domain } = this.options;
+    const { base, scholarships } = api;
+    const url = `${domain}${base}${scholarships}`;
+    return await this.apiService.get<ScholarshipSearchRS<T>>(url, {
+      headers: {
+        api_key: apiKey,
+        campusID: campusId,
+        periodID: periodId,
+      },
+      params,
+    });
+  }
 
   @MatildaApiErrorHandler()
   @CoreLogger()
