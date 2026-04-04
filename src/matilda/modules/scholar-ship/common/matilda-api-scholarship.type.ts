@@ -42,3 +42,8 @@ export class CreateScholarshipRQ<T = any> {
   external_id?: string;
   metadata?: T;
 }
+
+export class CreateScholarshipRS<T = any> extends CreateScholarshipRQ<T> {
+  id: string;
+  status: string;
+}
