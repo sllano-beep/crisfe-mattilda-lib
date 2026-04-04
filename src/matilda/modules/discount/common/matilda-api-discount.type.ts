@@ -17,3 +17,25 @@ export class CreateDiscountRQ<T = any> {
   external_id?: string;
   metadata?: T;
 }
+
+export class CreateDiscountRS<T = any> {
+  id: string;
+  name: string;
+  program_id: string;
+  workday: boolean;
+  apply_to_inscriptions: boolean;
+  apply_to_memberships: boolean;
+  status: string;
+  external_id: string;
+  metadata: T;
+  items: {
+    amount: number;
+    type: string;
+    max_date: number;
+    from_day: number;
+    from_month: number;
+    to_day: number;
+    to_month: number;
+    not_apply_with_scholarship: boolean;
+  }[];
+}
