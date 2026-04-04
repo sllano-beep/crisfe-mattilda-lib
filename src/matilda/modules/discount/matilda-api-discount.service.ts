@@ -4,7 +4,10 @@ import { api } from '../../common/matilda.config';
 import { MATILDA_API_MODULE_OPTIONS } from '../../common/matilda.constants';
 import { MatildaApiModuleOptions } from '../../common/matilda.types';
 import { MatildaApiErrorHandler } from '../../utils/matilda.decorator';
-import { CreateDiscountRQ } from './common/matilda-api-discount.type';
+import {
+  CreateDiscountRQ,
+  CreateDiscountRS,
+} from './common/matilda-api-discount.type';
 
 @Injectable()
 export class MatildaApiDiscountService {
@@ -19,11 +22,11 @@ export class MatildaApiDiscountService {
   async postDiscounts<T = any>(
     periodId: string,
     payload: CreateDiscountRQ<T>,
-  ): Promise<unknown> {
+  ): Promise<CreateDiscountRS<T>> {
     const { campusId, apiKey, domain } = this.options;
     const { base, discounts } = api;
     const url = `${domain}${base}${discounts}`;
-    return await this.apiService.post<CreateDiscountRQ<T>, unknown>(
+    return await this.apiService.post<CreateDiscountRQ<T>, CreateDiscountRS<T>>(
       url,
       payload,
       {
