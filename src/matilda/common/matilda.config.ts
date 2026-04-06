@@ -3,4 +3,8 @@ export const api = {
   users: '/users',
   students: '/students',
   periods: '/periods',
+  programs: '/programs',
+  discounts: '/discounts',
+  scholarships: '/scholarships',
+  ledger: '/ledger',
 };

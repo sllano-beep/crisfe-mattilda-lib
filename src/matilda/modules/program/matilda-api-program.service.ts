@@ -5,12 +5,12 @@ import { MATILDA_API_MODULE_OPTIONS } from '../../common/matilda.constants';
 import { MatildaApiModuleOptions } from '../../common/matilda.types';
 import { MatildaApiErrorHandler } from '../../utils/matilda.decorator';
 import {
-  StudentCreateRQ,
-  StudentCreateRS,
-} from './common/matilda-api-student.types';
+  MatildaApiProgramRS,
+  ProgramSearch,
+} from './common/matilda-api-program.types';
 
 @Injectable()
-export class MatildaApiStudentService {
+export class MatildaApiProgramService {
   constructor(
     @Inject(MATILDA_API_MODULE_OPTIONS)
     private readonly options: MatildaApiModuleOptions,
@@ -19,23 +19,18 @@ export class MatildaApiStudentService {
 
   @MatildaApiErrorHandler()
   @CoreLogger()
-  async postRegister<T = any>(
-    periodId: string,
-    payload: StudentCreateRQ<T>,
-  ): Promise<StudentCreateRS<T>> {
+  async getSearch<T = any>(
+    params: ProgramSearch,
+  ): Promise<MatildaApiProgramRS<T>[]> {
     const { campusId, apiKey, domain } = this.options;
-    const { base, students } = api;
-    const url = `${domain}${base}${students}`;
-    return await this.apiService.post<StudentCreateRQ<T>, StudentCreateRS<T>>(
-      url,
-      payload,
-      {
-        headers: {
-          api_key: apiKey,
-          campusID: campusId,
-          periodID: periodId,
-        },
+    const { base, programs } = api;
+    const url = `${domain}${base}${programs}`;
+    return await this.apiService.get<MatildaApiProgramRS<T>[]>(url, {
+      headers: {
+        api_key: apiKey,
+        campusID: campusId,
       },
-    );
+      params,
+    });
   }
 }
