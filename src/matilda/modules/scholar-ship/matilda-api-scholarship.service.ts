@@ -6,9 +6,9 @@ import { MatildaApiModuleOptions } from '../../common/matilda.types';
 import { MatildaApiErrorHandler } from '../../utils/matilda.decorator';
 import {
   CreateScholarshipRQ,
-  CreateScholarshipRS,
   ScholarshipSearch,
   ScholarshipSearchRS,
+  CreateScholarshipRS,
 } from './common/matilda-api-scholarship.type';
 
 export class MatildaApiScholarshipHeaders {
@@ -22,6 +22,25 @@ export class MatildaApiScholarshipService {
     private readonly options: MatildaApiModuleOptions,
     private readonly apiService: ApiService,
   ) {}
+
+  @MatildaApiErrorHandler()
+  @CoreLogger()
+  async getScholarships<T = any>(
+    params: ScholarshipSearch,
+    periodId: string,
+  ): Promise<ScholarshipSearchRS<T>> {
+    const { campusId, apiKey, domain } = this.options;
+    const { base, scholarships } = api;
+    const url = `${domain}${base}${scholarships}`;
+    return await this.apiService.get<ScholarshipSearchRS<T>>(url, {
+      headers: {
+        api_key: apiKey,
+        campusID: campusId,
+        periodID: periodId,
+      },
+      params,
+    });
+  }
 
   @MatildaApiErrorHandler()
   @CoreLogger()
@@ -41,25 +60,6 @@ export class MatildaApiScholarshipService {
         campusID: campusId,
         periodID: periodId,
       },
-    });
-  }
-
-  @MatildaApiErrorHandler()
-  @CoreLogger()
-  async getScholarships<T = any>(
-    params: ScholarshipSearch,
-    periodId: string,
-  ): Promise<ScholarshipSearchRS<T>> {
-    const { campusId, apiKey, domain } = this.options;
-    const { base, scholarships } = api;
-    const url = `${domain}${base}${scholarships}`;
-    return await this.apiService.get<ScholarshipSearchRS<T>>(url, {
-      headers: {
-        api_key: apiKey,
-        campusID: campusId,
-        periodID: periodId,
-      },
-      params,
     });
   }
 }
