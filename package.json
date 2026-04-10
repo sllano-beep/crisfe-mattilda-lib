@@ -20,12 +20,10 @@
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
-    "@crisfe/commons": "^1.0.0",
-    "@nestjs/axios": "^4.0.0",
+    "@crisfe/commons": "^1.0.1",
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
     "@nestjs/swagger": "^11.1.2",
-    "axios": "^1.12.2",
     "cache-manager": "^7.2.8",
     "ioredis": "^5.10.1",
     "class-transformer": "^0.5.1",
