@@ -1,0 +1,32 @@
+# ================================================================
+#  PIPELINE: crisfe-commons-lib
+#  Publica @crisfe/commons en Azure Artifacts.
+#  Usa el orquestador devops/library-pipeline.yml
+# ================================================================
+
+trigger:
+  branches:
+    include:
+      - develop
+      - preprod
+      - master
+
+pr:
+  branches:
+    include:
+      - develop
+      - preprod
+      - master
+
+resources:
+  repositories:
+    - repository: devops-templates
+      type: git
+      name: cicd/devops
+      ref: refs/heads/main
+
+extends:
+  template: library-pipeline.yml@devops-templates
+  parameters:
+    libraryName: "@crisfe/matilda"
+    libraryDir: "."
