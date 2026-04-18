@@ -9,3 +9,14 @@ export enum DocumentType {
   NIP = 'NIP',
   PPT = 'PPT',
 }
+
+export enum PersonStatus {
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+  DELETED = 'deleted',
+}
+
+export enum PersonType {
+  USER = 'user',
+  STUDENT = 'student',
+}
