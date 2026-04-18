@@ -12,7 +12,7 @@ import {
 import { Person } from '../../../common/matilda-base.types';
 import { DocumentType } from '../../../common/matilda.enums';
 
-export class User<T = unknown> extends Person<T> {
+export class User<T = any> extends Person<T> {
   @IsEmail({}, { message: 'Email must be a valid email address' })
   @MaxLength(256, { message: 'Email must be at most 256 characters' })
   email?: string;
@@ -34,7 +34,7 @@ export class User<T = unknown> extends Person<T> {
   is_on_boarding: boolean = false;
 }
 
-export class UserCreateRQ<T = unknown> {
+export class UserCreateRQ<T = any> {
   @IsString()
   @IsNotEmpty({ message: 'Name is required' })
   @MaxLength(256, { message: 'Name must be at most 256 characters' })
@@ -79,4 +79,4 @@ export class UserCreateRQ<T = unknown> {
   metadata?: T;
 }
 
-export class UserCreateRS<T = unknown> extends User<T> {}
+export class UserCreateRS<T = any> extends User<T> {}

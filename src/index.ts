@@ -10,7 +10,6 @@ export * from './matilda/utils/matilda.decorator';
 export * from './matilda/utils/matilda.exception';
 export * from './matilda/utils/matilda.utils';
 
-export * from './matilda/modules/user/common/matilda-api-user.enums';
 export * from './matilda/modules/user/common/matilda-api-user.types';
 export * from './matilda/modules/user/matilda-api-user.service';
 

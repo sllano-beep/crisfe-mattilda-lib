@@ -9,7 +9,7 @@ import {
 import { Person } from 'src/matilda/common/matilda-base.types';
 import { DocumentType } from 'src/matilda/common/matilda.enums';
 
-export class Student<T = unknown> extends Person<T> {
+export class Student<T = any> extends Person<T> {
   @IsString()
   @IsOptional()
   group?: string;
@@ -26,7 +26,7 @@ export class Student<T = unknown> extends Person<T> {
   // Student has array of family group members, which are also students.
 }
 
-export class StudentCreateRQ<T = unknown> {
+export class StudentCreateRQ<T = any> {
   @IsString()
   @IsNotEmpty()
   @MaxLength(256, { message: 'Name must be at most 256 characters' })
@@ -120,4 +120,4 @@ export class StudentCreateRQ<T = unknown> {
   surchargeID?: string;
 }
 
-export class StudentCreateRS<T = unknown> extends Student<T> {}
+export class StudentCreateRS<T = any> extends Student<T> {}

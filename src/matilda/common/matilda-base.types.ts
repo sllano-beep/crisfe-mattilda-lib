@@ -9,7 +9,7 @@ import {
 } from 'class-validator';
 import { DocumentType, PersonStatus, PersonType } from './matilda.enums';
 
-export class Person<T = unknown> {
+export class Person<T = any> {
   @IsString()
   id: string;
 
