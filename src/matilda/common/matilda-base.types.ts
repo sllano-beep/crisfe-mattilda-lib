@@ -1,19 +1,23 @@
 import {
-  IsUUID,
-  IsDate,
-  IsString,
-  Max,
-  IsOptional,
-  IsNotEmpty,
-  IsEnum,
-  IsEmail,
-  IsPhoneNumber,
   IsBoolean,
+  IsDate,
+  IsEmail,
+  IsEnum,
+  IsNotEmpty,
   IsObject,
+  IsOptional,
+  IsPhoneNumber,
+  IsString,
+  IsUUID,
+  Max,
 } from 'class-validator';
-import { UserStatus, UserType } from '../../user/common/matilda-api-user.enums';
+import {
+  UserStatus,
+  UserType,
+} from '../modules/user/common/matilda-api-user.enums';
+import { DocumentType } from './matilda.enums';
 
-export class Person<T = Record<string, unknown>> {
+export class Person<T = any> {
   @IsUUID()
   id: string;
 
@@ -34,7 +38,7 @@ export class Person<T = Record<string, unknown>> {
   @IsString()
   @IsOptional()
   @Max(256, { message: 'Second last name must be at most 256 characters' })
-  second_last_name: string | null | undefined;
+  second_last_name?: string;
 
   @IsString()
   @IsNotEmpty({ message: 'Full name is required' })
@@ -50,37 +54,37 @@ export class Person<T = Record<string, unknown>> {
   @IsString()
   @IsOptional()
   @Max(18, { message: 'TIN must be at most 18 characters' })
-  tin: string | null | undefined;
+  tin?: string;
 
   @IsOptional()
   @IsEnum(DocumentType, { message: 'Document type must be a valid enum value' })
-  document_type: DocumentType | null | undefined;
+  document_type?: DocumentType;
 
   @IsEmail({}, { message: 'Email must be a valid email address' })
   @Max(256, { message: 'Email must be at most 256 characters' })
-  email: string | null | undefined;
+  email?: string;
 
   @IsPhoneNumber()
   @Max(256, { message: 'Phone must be at most 256 characters' })
-  phone: string | null | undefined;
+  phone?: string;
 
   @IsString()
   @IsOptional()
   @Max(256, { message: 'Username must be at most 256 characters' })
-  username: string | null | undefined;
+  username?: string;
 
   @IsDate()
   @IsOptional()
-  last_login: Date | null | undefined;
+  last_login?: Date;
 
   @IsBoolean()
   is_on_boarding: boolean = false;
 
   @IsString()
   @IsOptional()
-  external_id: string | null | undefined;
+  external_id?: string;
 
   @IsObject()
   @IsOptional()
-  metadata: T | null | undefined;
+  metadata?: T;
 }

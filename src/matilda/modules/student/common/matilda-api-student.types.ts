@@ -1,4 +1,5 @@
-import { DocumentType, StudentStatus, StudentType } from './matilda-api-student.enums';
+import { DocumentType } from '../../../common/matilda.enums';
+import { StudentStatus, StudentType } from './matilda-api-student.enums';
 
 export class Student<T = any> {
   name: string;

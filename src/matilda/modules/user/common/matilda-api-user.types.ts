@@ -6,10 +6,10 @@ import {
   IsString,
   Max,
 } from 'class-validator';
-import { Person } from '../../base/common/matilda-base.types';
-import { DocumentType } from './matilda-api-user.enums';
+import { Person } from '../../../common/matilda-base.types';
+import { DocumentType } from '../../../common/matilda.enums';
 
-export class UserCreateRQ<T = Record<string, unknown>> {
+export class UserCreateRQ<T = any> {
   @IsString()
   @IsNotEmpty({ message: 'Name is required' })
   @Max(256, { message: 'Name must be at most 256 characters' })
@@ -23,7 +23,7 @@ export class UserCreateRQ<T = Record<string, unknown>> {
   @IsString()
   @IsOptional()
   @Max(256, { message: 'Second last name must be at most 256 characters' })
-  second_last_name: string | null | undefined;
+  second_last_name?: string;
 
   @IsString()
   @IsNotEmpty({ message: 'Email is required' })
@@ -32,11 +32,11 @@ export class UserCreateRQ<T = Record<string, unknown>> {
   @Max(18, { message: 'TIN must be at most 18 characters' })
   @IsString()
   @IsOptional()
-  tin: string | null | undefined;
+  tin?: string;
 
   @IsOptional()
   @IsEnum(DocumentType, { message: 'Document type must be a valid enum value' })
-  document_type: DocumentType | null | undefined;
+  document_type?: DocumentType;
 
   @IsString()
   @IsNotEmpty({ message: 'Phone is required' })
@@ -50,4 +50,4 @@ export class UserCreateRQ<T = Record<string, unknown>> {
   metadata: T;
 }
 
-export class UserCreateRS<T = Record<string, unknown>> extends Person<T> {}
+export class UserCreateRS<T = any> extends Person<T> {}

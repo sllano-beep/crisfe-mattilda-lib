@@ -1,4 +1,6 @@
 export * from './matilda/matilda.api.module';
+export * from './matilda/common/matilda-base.types';
+export * from './matilda/common/matilda.enums';
 
 export * from './matilda/common/matilda.config';
 export * from './matilda/common/matilda.constants';

@@ -8,7 +8,3 @@ export enum StudentType {
   STUDENT = 'student',
 }
 
-export enum DocumentType {
-  CURP = 'CURP',
-  NONE = 'None',
-}
