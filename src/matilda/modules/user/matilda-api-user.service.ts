@@ -23,7 +23,7 @@ export class MatildaApiUserService {
     const { campusId, apiKey, domain } = this.options;
     const { base, users } = api;
     const url = `${domain}${base}${users}`;
-    return await this.apiService.post<UserCreateRQ<T>, UserCreateRS<T>>(
+    return this.apiService.post<UserCreateRQ<T>, UserCreateRS<T>>(
       url,
       payload,
       {
