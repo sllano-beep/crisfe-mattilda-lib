@@ -19,7 +19,7 @@ export class MatildaApiPeriodService {
 
   @CoreLogger()
   async postGetByName(name: string): Promise<PeriodRS> {
-    return await this.postSearch({ name }).then((res) => res.data[0]);
+    return this.postSearch({ name }).then((res) => res.data[0]);
   }
 
   @MatildaApiErrorHandler()
