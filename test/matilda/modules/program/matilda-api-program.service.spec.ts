@@ -44,7 +44,8 @@ describe('MatildaApiProgramService', () => {
   });
 
   describe('getSearch', () => {
-    it('Given valid search params When getSearch is called Then it should call ApiService.get with the expected request and return the response', async () => {
+    it('Given valid search params and period id When getSearch is called Then it should call ApiService.get with the expected request and return the response', async () => {
+      const periodId = 'period-001';
       const params: ProgramSearch = { name: 'Math Program' };
       const expectedResponse = [
         {
@@ -55,7 +56,7 @@ describe('MatildaApiProgramService', () => {
 
       apiService.get.mockResolvedValue(expectedResponse);
 
-      const result = await service.getSearch(params);
+      const result = await service.getSearch(periodId, params);
 
       expect(apiService.get).toHaveBeenCalledTimes(1);
       expect(apiService.get).toHaveBeenCalledWith(
@@ -64,6 +65,7 @@ describe('MatildaApiProgramService', () => {
           headers: {
             api_key: 'test-api-key',
             campusID: 'campus-001',
+            periodID: periodId,
           },
           params,
         },
@@ -77,7 +79,7 @@ describe('MatildaApiProgramService', () => {
 
       apiService.get.mockRejectedValue(error);
 
-      await expect(service.getSearch(params)).rejects.toThrow(
+      await expect(service.getSearch('period-001', params)).rejects.toThrow(
         'Unexpected network error',
       );
     });

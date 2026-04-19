@@ -22,6 +22,7 @@ export class MatildaApiScholarshipService {
   @MatildaApiErrorHandler()
   @CoreLogger()
   async getSearch<T = any>(
+    periodId: string,
     params: ScholarshipSearch,
   ): Promise<ScholarshipSearchRS<T>> {
     const { campusId, apiKey, domain } = this.options;
@@ -31,6 +32,7 @@ export class MatildaApiScholarshipService {
       headers: {
         api_key: apiKey,
         campusID: campusId,
+        periodID: periodId,
       },
       params: params,
     });
@@ -39,8 +41,8 @@ export class MatildaApiScholarshipService {
   @MatildaApiErrorHandler()
   @CoreLogger()
   async postCreate<T = any>(
-    payload: CreateScholarshipRQ<T>,
     periodId: string,
+    payload: CreateScholarshipRQ<T>,
   ): Promise<ScholarshipRS<T>> {
     const { campusId, apiKey, domain } = this.options;
     const { base, scholarships } = api;

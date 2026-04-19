@@ -50,7 +50,8 @@ describe('MatildaApiScholarshipService', () => {
   });
 
   describe('getSearch', () => {
-    it('Given valid search params When getSearch is called Then it should call ApiService.get with expected request and return the response', async () => {
+    it('Given valid search params and period id When getSearch is called Then it should call ApiService.get with expected request and return the response', async () => {
+      const periodId = 'period-001';
       const params: ScholarshipSearch = { name: 'Scholarship A' };
       const expectedResponse = {
         items: {
@@ -75,7 +76,7 @@ describe('MatildaApiScholarshipService', () => {
 
       apiService.get.mockResolvedValue(expectedResponse);
 
-      const result = await service.getSearch(params);
+      const result = await service.getSearch(periodId, params);
 
       expect(apiService.get).toHaveBeenCalledTimes(1);
       expect(apiService.get).toHaveBeenCalledWith(
@@ -84,6 +85,7 @@ describe('MatildaApiScholarshipService', () => {
           headers: {
             api_key: 'test-api-key',
             campusID: 'campus-001',
+            periodID: periodId,
           },
           params,
         },
@@ -95,9 +97,9 @@ describe('MatildaApiScholarshipService', () => {
       const error = new Error('Unexpected network error');
       apiService.get.mockRejectedValue(error);
 
-      await expect(service.getSearch({ name: 'Scholarship A' })).rejects.toThrow(
-        'Unexpected network error',
-      );
+      await expect(
+        service.getSearch('period-001', { name: 'Scholarship A' }),
+      ).rejects.toThrow('Unexpected network error');
     });
   });
 
@@ -121,7 +123,7 @@ describe('MatildaApiScholarshipService', () => {
 
       apiService.post.mockResolvedValue(expectedResponse);
 
-      const result = await service.postCreate(payload, periodId);
+      const result = await service.postCreate(periodId, payload);
 
       expect(apiService.post).toHaveBeenCalledTimes(1);
       expect(apiService.post).toHaveBeenCalledWith(
@@ -152,7 +154,7 @@ describe('MatildaApiScholarshipService', () => {
 
       apiService.post.mockRejectedValue(error);
 
-      await expect(service.postCreate(payload, 'period-001')).rejects.toThrow(
+      await expect(service.postCreate('period-001', payload)).rejects.toThrow(
         'Unexpected network error',
       );
     });
