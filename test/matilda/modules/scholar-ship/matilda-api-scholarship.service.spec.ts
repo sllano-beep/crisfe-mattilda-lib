@@ -1,15 +1,15 @@
 import { ApiService } from '@crisfe/commons';
 import { Test, TestingModule } from '@nestjs/testing';
-import { AdjustmentType } from 'src/matilda/common/matilda.enums';
-import { MATILDA_API_MODULE_OPTIONS } from 'src/matilda/common/matilda.constants';
-import { MatildaApiModuleOptions } from 'src/matilda/common/matilda.types';
+import { MATILDA_API_MODULE_OPTIONS } from '../../../../src/matilda/common/matilda.constants';
+import { MatildaApiModuleOptions } from '../../../../src/matilda/common/matilda.types';
+import { DiscountType } from '../../../../src/matilda/modules/discount/common/matilda-api-discount.enums';
 import {
   CreateScholarshipRQ,
   ScholarshipRS,
   ScholarshipSearch,
   ScholarshipSearchRS,
-} from 'src/matilda/modules/scholar-ship/common/matilda-api-scholarship.type';
-import { MatildaApiScholarshipService } from 'src/matilda/modules/scholar-ship/matilda-api-scholarship.service';
+} from '../../../../src/matilda/modules/scholar-ship/common/matilda-api-scholarship.type';
+import { MatildaApiScholarshipService } from '../../../../src/matilda/modules/scholar-ship/matilda-api-scholarship.service';
 
 describe('MatildaApiScholarshipService', () => {
   let service: MatildaApiScholarshipService;
@@ -68,7 +68,7 @@ describe('MatildaApiScholarshipService', () => {
             apply_to_inscriptions: true,
             apply_to_memberships: false,
             amount: 10,
-            type: AdjustmentType.PERCENTAGE,
+            type: DiscountType.INTEGER,
             status: 'ACTIVE',
           },
         ],
@@ -113,7 +113,7 @@ describe('MatildaApiScholarshipService', () => {
         apply_to_inscriptions: true,
         apply_to_memberships: false,
         amount: 10,
-        type: AdjustmentType.PERCENTAGE,
+        type: DiscountType.PERCENTAGE,
       } as CreateScholarshipRQ;
       const expectedResponse = {
         ...payload,
@@ -148,7 +148,7 @@ describe('MatildaApiScholarshipService', () => {
         apply_to_inscriptions: true,
         apply_to_memberships: false,
         amount: 10,
-        type: AdjustmentType.PERCENTAGE,
+        type: DiscountType.PERCENTAGE,
       } as CreateScholarshipRQ;
       const error = new Error('Unexpected network error');
 

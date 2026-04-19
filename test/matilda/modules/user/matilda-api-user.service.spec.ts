@@ -1,12 +1,12 @@
 import { ApiService } from '@crisfe/commons';
 import { Test, TestingModule } from '@nestjs/testing';
-import { MATILDA_API_MODULE_OPTIONS } from 'src/matilda/common/matilda.constants';
-import { MatildaApiModuleOptions } from 'src/matilda/common/matilda.types';
+import { MATILDA_API_MODULE_OPTIONS } from '../../../../src/matilda/common/matilda.constants';
+import { MatildaApiModuleOptions } from '../../../../src/matilda/common/matilda.types';
 import {
   UserCreateRQ,
   UserCreateRS,
-} from 'src/matilda/modules/user/common/matilda-api-user.types';
-import { MatildaApiUserService } from 'src/matilda/modules/user/matilda-api-user.service';
+} from '../../../../src/matilda/modules/user/common/matilda-api-user.types';
+import { MatildaApiUserService } from '../../../../src/matilda/modules/user/matilda-api-user.service';
 
 describe('MatildaApiUserService', () => {
   let service: MatildaApiUserService;

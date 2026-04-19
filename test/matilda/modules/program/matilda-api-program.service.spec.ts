@@ -1,12 +1,12 @@
 import { ApiService } from '@crisfe/commons';
 import { Test, TestingModule } from '@nestjs/testing';
-import { MATILDA_API_MODULE_OPTIONS } from 'src/matilda/common/matilda.constants';
-import { MatildaApiModuleOptions } from 'src/matilda/common/matilda.types';
+import { MATILDA_API_MODULE_OPTIONS } from '../../../../src/matilda/common/matilda.constants';
+import { MatildaApiModuleOptions } from '../../../../src/matilda/common/matilda.types';
 import {
   MatildaApiProgramRS,
   ProgramSearch,
-} from 'src/matilda/modules/program/common/matilda-api-program.types';
-import { MatildaApiProgramService } from 'src/matilda/modules/program/matilda-api-program.service';
+} from '../../../../src/matilda/modules/program/common/matilda-api-program.types';
+import { MatildaApiProgramService } from '../../../../src/matilda/modules/program/matilda-api-program.service';
 
 describe('MatildaApiProgramService', () => {
   let service: MatildaApiProgramService;

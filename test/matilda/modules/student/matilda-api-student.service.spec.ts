@@ -1,12 +1,12 @@
 import { ApiService } from '@crisfe/commons';
 import { Test, TestingModule } from '@nestjs/testing';
-import { MATILDA_API_MODULE_OPTIONS } from 'src/matilda/common/matilda.constants';
-import { MatildaApiModuleOptions } from 'src/matilda/common/matilda.types';
+import { MATILDA_API_MODULE_OPTIONS } from '../../../../src/matilda/common/matilda.constants';
+import { MatildaApiModuleOptions } from '../../../../src/matilda/common/matilda.types';
 import {
   StudentCreateRQ,
   StudentCreateRS,
-} from 'src/matilda/modules/student/common/matilda-api-student.types';
-import { MatildaApiStudentService } from 'src/matilda/modules/student/matilda-api-student.service';
+} from '../../../../src/matilda/modules/student/common/matilda-api-student.types';
+import { MatildaApiStudentService } from '../../../../src/matilda/modules/student/matilda-api-student.service';
 
 describe('MatildaApiStudentService', () => {
   let service: MatildaApiStudentService;

@@ -20,8 +20,3 @@ export enum PersonType {
   USER = 'user',
   STUDENT = 'student',
 }
-
-export enum AdjustmentType {
-  INTEGER = 'integer',
-  PERCENTAGE = 'percentage',
-}

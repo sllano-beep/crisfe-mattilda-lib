@@ -1,13 +1,13 @@
 import { ApiService } from '@crisfe/commons';
 import { Test, TestingModule } from '@nestjs/testing';
-import { MATILDA_API_MODULE_OPTIONS } from 'src/matilda/common/matilda.constants';
-import { MatildaApiModuleOptions } from 'src/matilda/common/matilda.types';
-import { LedgerPrimaryConceptType } from 'src/matilda/modules/ledger/common/matilda-api-ledger.enums';
+import { MATILDA_API_MODULE_OPTIONS } from '../../../../src/matilda/common/matilda.constants';
+import { MatildaApiModuleOptions } from '../../../../src/matilda/common/matilda.types';
+import { LedgerPrimaryConceptType } from '../../../../src/matilda/modules/ledger/common/matilda-api-ledger.enums';
 import {
   LedgerCreateRQ,
   LedgerCreateRS,
-} from 'src/matilda/modules/ledger/common/matilda-api-ledger.type';
-import { MatildaApiLedgerService } from 'src/matilda/modules/ledger/matilda-api-ledger.service';
+} from '../../../../src/matilda/modules/ledger/common/matilda-api-ledger.type';
+import { MatildaApiLedgerService } from '../../../../src/matilda/modules/ledger/matilda-api-ledger.service';
 
 describe('MatildaApiLedgerService', () => {
   let service: MatildaApiLedgerService;
