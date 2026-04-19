@@ -1,17 +1,33 @@
+import {
+  IsNotEmpty,
+  IsObject,
+  IsOptional,
+  IsString,
+  MaxLength,
+} from 'class-validator';
+
 export class MatildaApiProgramRS<T = any> {
+  @IsString()
   programID: string;
+
+  @IsString()
+  @MaxLength(256, { message: 'Name must be at most 256 characters' })
   name: string;
+
+  @IsString()
   externalId: string;
+
+  @IsString()
   campusPeriodId: string;
-  metadata: T | null;
+
+  @IsObject()
+  @IsOptional()
+  metadata?: T;
 }
 
 export class ProgramSearch {
-  name?: string;
-  date_from?: string;
-  date_to?: string;
-  page?: number;
-  status?: string;
-  external_id?: string;
-  metadata?: string;
+  @IsString()
+  @IsNotEmpty({ message: 'Name is required' })
+  @MaxLength(256, { message: 'Name must be at most 256 characters' })
+  name: string;
 }
