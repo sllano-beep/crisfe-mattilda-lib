@@ -3,8 +3,3 @@ export enum LedgerPrimaryConceptType {
   INSCRIPTION = 'inscription',
   COMPLEMENT = 'complement',
 }
-
-export enum LedgerPayType {
-  INTEGER = 'integer',
-  PERCENTAGE = 'percentage',
-}
