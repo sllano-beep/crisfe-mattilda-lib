@@ -6,8 +6,8 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
-import { Person } from 'src/matilda/common/matilda-base.types';
-import { DocumentType } from 'src/matilda/common/matilda.enums';
+import { Person } from '../../../common/matilda-base.types';
+import { DocumentType } from '../../../common/matilda.enums';
 
 export class Student<T = any> extends Person<T> {
   @IsString()
@@ -21,9 +21,6 @@ export class Student<T = any> extends Person<T> {
   @IsString()
   @IsOptional()
   period_id?: string;
-
-  // Student has concepts related to payments, discounts, scholarships, etc.
-  // Student has array of family group members, which are also students.
 }
 
 export class StudentCreateRQ<T = any> {
