@@ -7,6 +7,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
+  MaxLength,
   Min,
   ValidateNested,
 } from 'class-validator';
@@ -15,17 +16,8 @@ import { AdjustmentType } from 'src/matilda/common/matilda.enums';
 export class ScholarshipSearch {
   @IsString()
   @IsNotEmpty()
-  program_id: string;
-
-  @IsString()
-  @IsOptional()
-  @IsNotEmpty()
-  q?: string;
-
-  @IsString()
-  @IsOptional()
-  @IsNotEmpty()
-  name?: string;
+  @MaxLength(256, { message: 'Name must be at most 256 characters' })
+  name: string;
 }
 
 export class ScholarshipListPagination {
@@ -96,3 +88,5 @@ export class CreateScholarshipRS<T = any> extends CreateScholarshipRQ<T> {
   @IsNotEmpty()
   status: string;
 }
+
+export class ScholarshipRS<T = any> extends CreateScholarshipRS<T> {}

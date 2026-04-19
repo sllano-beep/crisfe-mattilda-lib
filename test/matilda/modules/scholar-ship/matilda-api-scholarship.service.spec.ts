@@ -5,7 +5,7 @@ import { MATILDA_API_MODULE_OPTIONS } from 'src/matilda/common/matilda.constants
 import { MatildaApiModuleOptions } from 'src/matilda/common/matilda.types';
 import {
   CreateScholarshipRQ,
-  CreateScholarshipRS,
+  ScholarshipRS,
   ScholarshipSearch,
   ScholarshipSearchRS,
 } from 'src/matilda/modules/scholar-ship/common/matilda-api-scholarship.type';
@@ -49,10 +49,9 @@ describe('MatildaApiScholarshipService', () => {
     jest.clearAllMocks();
   });
 
-  describe('getScholarships', () => {
-    it('Given valid search params and period id When getScholarships is called Then it should call ApiService.get with expected request and return the response', async () => {
-      const periodId = 'period-001';
-      const params: ScholarshipSearch = { program_id: 'program-001' };
+  describe('getSearch', () => {
+    it('Given valid search params When getSearch is called Then it should call ApiService.get with expected request and return the response', async () => {
+      const params: ScholarshipSearch = { name: 'Scholarship A' };
       const expectedResponse = {
         items: {
           items: 1,
@@ -76,7 +75,7 @@ describe('MatildaApiScholarshipService', () => {
 
       apiService.get.mockResolvedValue(expectedResponse);
 
-      const result = await service.getScholarships(params, periodId);
+      const result = await service.getSearch(params);
 
       expect(apiService.get).toHaveBeenCalledTimes(1);
       expect(apiService.get).toHaveBeenCalledWith(
@@ -85,7 +84,6 @@ describe('MatildaApiScholarshipService', () => {
           headers: {
             api_key: 'test-api-key',
             campusID: 'campus-001',
-            periodID: periodId,
           },
           params,
         },
@@ -93,18 +91,18 @@ describe('MatildaApiScholarshipService', () => {
       expect(result).toEqual(expectedResponse);
     });
 
-    it('Given an unknown api error When getScholarships is called Then it should rethrow the same error', async () => {
+    it('Given an unknown api error When getSearch is called Then it should rethrow the same error', async () => {
       const error = new Error('Unexpected network error');
       apiService.get.mockRejectedValue(error);
 
-      await expect(
-        service.getScholarships({ program_id: 'program-001' }, 'period-001'),
-      ).rejects.toThrow('Unexpected network error');
+      await expect(service.getSearch({ name: 'Scholarship A' })).rejects.toThrow(
+        'Unexpected network error',
+      );
     });
   });
 
-  describe('postScholarships', () => {
-    it('Given a valid scholarship payload and period id When postScholarships is called Then it should call ApiService.post with expected request and return the response', async () => {
+  describe('postCreate', () => {
+    it('Given a valid scholarship payload and period id When postCreate is called Then it should call ApiService.post with expected request and return the response', async () => {
       const periodId = 'period-001';
       const payload = {
         name: 'Scholarship A',
@@ -119,11 +117,11 @@ describe('MatildaApiScholarshipService', () => {
         ...payload,
         id: 'sch-001',
         status: 'ACTIVE',
-      } as CreateScholarshipRS;
+      } as ScholarshipRS;
 
       apiService.post.mockResolvedValue(expectedResponse);
 
-      const result = await service.postScholarships(payload, periodId);
+      const result = await service.postCreate(payload, periodId);
 
       expect(apiService.post).toHaveBeenCalledTimes(1);
       expect(apiService.post).toHaveBeenCalledWith(
@@ -140,7 +138,7 @@ describe('MatildaApiScholarshipService', () => {
       expect(result).toEqual(expectedResponse);
     });
 
-    it('Given an unknown api error When postScholarships is called Then it should rethrow the same error', async () => {
+    it('Given an unknown api error When postCreate is called Then it should rethrow the same error', async () => {
       const payload = {
         name: 'Scholarship A',
         description: 'Description',
@@ -154,9 +152,9 @@ describe('MatildaApiScholarshipService', () => {
 
       apiService.post.mockRejectedValue(error);
 
-      await expect(
-        service.postScholarships(payload, 'period-001'),
-      ).rejects.toThrow('Unexpected network error');
+      await expect(service.postCreate(payload, 'period-001')).rejects.toThrow(
+        'Unexpected network error',
+      );
     });
   });
 });
