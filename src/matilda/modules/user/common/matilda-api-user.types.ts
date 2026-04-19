@@ -1,53 +1,82 @@
 import {
+  IsBoolean,
+  IsDate,
+  IsEmail,
   IsEnum,
   IsNotEmpty,
-  IsNotEmptyObject,
   IsOptional,
+  IsPhoneNumber,
   IsString,
-  Max,
+  MaxLength,
 } from 'class-validator';
-import { Person } from '../../base/common/matilda-base.types';
-import { DocumentType } from './matilda-api-user.enums';
+import { Person } from '../../../common/matilda-base.types';
+import { DocumentType } from '../../../common/matilda.enums';
 
-export class UserCreateRQ<T = Record<string, unknown>> {
+export class User<T = any> extends Person<T> {
+  @IsEmail({}, { message: 'Email must be a valid email address' })
+  @MaxLength(256, { message: 'Email must be at most 256 characters' })
+  email?: string;
+
+  @IsPhoneNumber()
+  @MaxLength(256, { message: 'Phone must be at most 256 characters' })
+  phone?: string;
+
+  @IsString()
+  @IsOptional()
+  @MaxLength(256, { message: 'Username must be at most 256 characters' })
+  username?: string;
+
+  @IsDate()
+  @IsOptional()
+  last_login?: Date;
+
+  @IsBoolean()
+  is_on_boarding: boolean = false;
+}
+
+export class UserCreateRQ<T = any> {
   @IsString()
   @IsNotEmpty({ message: 'Name is required' })
-  @Max(256, { message: 'Name must be at most 256 characters' })
+  @MaxLength(256, { message: 'Name must be at most 256 characters' })
   name: string;
 
   @IsString()
   @IsNotEmpty({ message: 'First last name is required' })
-  @Max(256, { message: 'First last name must be at most 256 characters' })
+  @MaxLength(256, { message: 'First last name must be at most 256 characters' })
   first_last_name: string;
 
   @IsString()
   @IsOptional()
-  @Max(256, { message: 'Second last name must be at most 256 characters' })
-  second_last_name: string | null | undefined;
+  @MaxLength(256, {
+    message: 'Second last name must be at most 256 characters',
+  })
+  second_last_name?: string;
 
   @IsString()
   @IsNotEmpty({ message: 'Email is required' })
+  @MaxLength(256, { message: 'Email must be at most 256 characters' })
   email: string;
 
-  @Max(18, { message: 'TIN must be at most 18 characters' })
+  @MaxLength(18, { message: 'TIN must be at most 18 characters' })
   @IsString()
   @IsOptional()
-  tin: string | null | undefined;
+  tin?: string;
 
   @IsOptional()
   @IsEnum(DocumentType, { message: 'Document type must be a valid enum value' })
-  document_type: DocumentType | null | undefined;
+  document_type?: DocumentType;
 
   @IsString()
   @IsNotEmpty({ message: 'Phone is required' })
+  @MaxLength(256, { message: 'Phone must be at most 256 characters' })
   phone: string;
 
   @IsString()
   @IsNotEmpty({ message: 'External ID is required' })
   external_id: string;
 
-  @IsNotEmptyObject()
-  metadata: T;
+  @IsOptional()
+  metadata?: T;
 }
 
-export class UserCreateRS<T = Record<string, unknown>> extends Person<T> {}
+export class UserCreateRS<T = any> extends User<T> {}

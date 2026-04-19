@@ -4,7 +4,10 @@ import { api } from '../../common/matilda.config';
 import { MATILDA_API_MODULE_OPTIONS } from '../../common/matilda.constants';
 import { MatildaApiModuleOptions } from '../../common/matilda.types';
 import { MatildaApiErrorHandler } from '../../utils/matilda.decorator';
-import { LedgerCreateRQ, LedgerCreateRS, LedgerRS } from './common/matilda-api-ledger.type';
+import {
+  LedgerCreateRQ,
+  LedgerCreateRS,
+} from './common/matilda-api-ledger.type';
 
 @Injectable()
 export class MatildaApiLedgerService {
@@ -16,28 +19,11 @@ export class MatildaApiLedgerService {
 
   @MatildaApiErrorHandler()
   @CoreLogger()
-  async getLedger<T = any>(
-    params?: Record<string, unknown>,
-  ): Promise<LedgerRS<T>[]> {
-    const { campusId, apiKey, domain } = this.options;
-    const { base, ledger } = api;
-    const url = `${domain}${base}${ledger}`;
-    return await this.apiService.get<LedgerRS<T>[]>(url, {
-      headers: {
-        api_key: apiKey,
-        campusID: campusId,
-      },
-      params,
-    });
-  }
-
-  @MatildaApiErrorHandler()
-  @CoreLogger()
-  async getLedgerById<T = any>(ledgerId: string): Promise<LedgerRS<T>> {
+  async getLedgerById<T = any>(ledgerId: string): Promise<LedgerCreateRS<T>> {
     const { campusId, apiKey, domain } = this.options;
     const { base, ledger } = api;
     const url = `${domain}${base}${ledger}/${ledgerId}`;
-    return await this.apiService.get<LedgerRS<T>>(url, {
+    return await this.apiService.get<LedgerCreateRS<T>>(url, {
       headers: {
         api_key: apiKey,
         campusID: campusId,
@@ -50,34 +36,11 @@ export class MatildaApiLedgerService {
   async postLedger<T = any>(
     periodId: string,
     payload: LedgerCreateRQ<T>,
-  ): Promise<LedgerCreateRS<T>[]> {
+  ): Promise<LedgerCreateRS<T>> {
     const { campusId, apiKey, domain } = this.options;
     const { base, ledger } = api;
     const url = `${domain}${base}${ledger}`;
-    return await this.apiService.post<LedgerCreateRQ<T>, LedgerCreateRS<T>[]>(
-      url,
-      payload,
-      {
-        headers: {
-          api_key: apiKey,
-          campusID: campusId,
-          periodID: periodId,
-        },
-      },
-    );
-  }
-
-  @MatildaApiErrorHandler()
-  @CoreLogger()
-  async putLedger<T = any>(
-    ledgerId: string,
-    periodId: string,
-    payload: LedgerCreateRQ<T>,
-  ): Promise<LedgerCreateRS<T>[]> {
-    const { campusId, apiKey, domain } = this.options;
-    const { base, ledger } = api;
-    const url = `${domain}${base}${ledger}/${ledgerId}`;
-    return await this.apiService.put<LedgerCreateRQ<T>, LedgerCreateRS<T>[]>(
+    return await this.apiService.post<LedgerCreateRQ<T>, LedgerCreateRS<T>>(
       url,
       payload,
       {

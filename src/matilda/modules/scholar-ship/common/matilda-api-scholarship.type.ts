@@ -1,49 +1,92 @@
-import { ScholarshipType } from './matilda-api-scholarship.enums';
+import { Type } from 'class-transformer';
+import {
+  IsArray,
+  IsBoolean,
+  IsEnum,
+  IsInt,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MaxLength,
+  Min,
+  ValidateNested,
+} from 'class-validator';
+import { AdjustmentType } from 'src/matilda/common/matilda.enums';
 
 export class ScholarshipSearch {
-  program_id: string;
-  q?: string;
-  name?: string;
-}
-
-export class ScholarshipRS<T = any> {
-  id: string;
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(256, { message: 'Name must be at most 256 characters' })
   name: string;
-  description: string;
-  program_id: string;
-  apply_to_inscriptions: boolean;
-  apply_to_memberships: boolean;
-  amount: number;
-  type: ScholarshipType;
-  status: string;
-  external_id?: string;
-  metadata?: T;
 }
 
 export class ScholarshipListPagination {
+  @IsInt()
+  @Min(0)
   items: number;
+
+  @IsInt()
+  @Min(0)
   page: number;
+
+  @IsInt()
+  @Min(0)
   total_pages: number;
 }
 
 export class ScholarshipSearchRS<T = any> {
+  @Type(() => ScholarshipListPagination)
   items: ScholarshipListPagination;
-  data: ScholarshipRS<T>[];
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateScholarshipRS)
+  data: CreateScholarshipRS<T>[];
 }
 
 export class CreateScholarshipRQ<T = any> {
+  @IsString()
+  @IsNotEmpty()
   name: string;
+
+  @IsString()
+  @IsNotEmpty()
   description: string;
+
+  @IsString()
+  @IsNotEmpty()
   program_id: string;
+
+  @IsBoolean()
   apply_to_inscriptions: boolean;
+
+  @IsBoolean()
   apply_to_memberships: boolean;
+
+  @IsInt()
+  @Min(0)
   amount: number;
-  type: ScholarshipType;
+
+  @IsEnum(AdjustmentType)
+  type: AdjustmentType;
+
+  @IsString()
+  @IsOptional()
+  @IsNotEmpty()
   external_id?: string;
+
+  @IsOptional()
   metadata?: T;
 }
 
 export class CreateScholarshipRS<T = any> extends CreateScholarshipRQ<T> {
+  @IsString()
+  @IsNotEmpty()
   id: string;
+
+  @IsString()
+  @IsNotEmpty()
   status: string;
 }
+
+export class ScholarshipRS<T = any> extends CreateScholarshipRS<T> {}

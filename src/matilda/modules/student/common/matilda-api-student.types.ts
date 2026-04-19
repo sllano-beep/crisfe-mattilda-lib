@@ -1,46 +1,120 @@
-import { DocumentType, StudentStatus, StudentType } from './matilda-api-student.enums';
+import {
+  IsBoolean,
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MaxLength,
+} from 'class-validator';
+import { Person } from '../../../common/matilda-base.types';
+import { DocumentType } from '../../../common/matilda.enums';
 
-export class Student<T = any> {
+export class Student<T = any> extends Person<T> {
+  @IsString()
+  @IsOptional()
+  group?: string;
+
+  @IsString()
+  @IsOptional()
+  grade?: string;
+
+  @IsString()
+  @IsOptional()
+  period_id?: string;
+}
+
+export class StudentCreateRQ<T = any> {
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(256, { message: 'Name must be at most 256 characters' })
   name: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(256, { message: 'First last name must be at most 256 characters' })
   first_last_name: string;
-  second_last_name: string;
+
+  @IsString()
+  @IsOptional()
+  @MaxLength(256, {
+    message: 'Second last name must be at most 256 characters',
+  })
+  second_last_name?: string;
+
+  @IsString()
+  @IsOptional()
+  @MaxLength(256, { message: 'Enrollment must be at most 256 characters' })
+  enrollment?: string;
+
+  @IsString()
+  @IsOptional()
+  @MaxLength(256, { message: 'Grade must be at most 256 characters' })
+  grade?: string;
+
+  @IsString()
+  @IsOptional()
+  @MaxLength(256, { message: 'Group must be at most 256 characters' })
+  group?: string;
+
+  /**
+   * User ID to be related to the Student.
+   */
+  @IsString()
+  @IsNotEmpty()
+  parent_id: string;
+
+  /**
+   * Student document number
+   */
+  @IsString()
+  @IsNotEmpty()
   tin: string;
-  document_type: DocumentType | string;
-  external_id: string;
-  metadata: T | null;
-}
 
-export class StudentCreateRQ<T = any> extends Student<T> {
-  enrollment: number;
-  grade: number;
-  group: string;
-  parent_id: string;
-  preloaded: boolean;
+  @IsString()
+  @IsOptional()
+  @IsEnum(DocumentType, { message: 'Document type must be a valid enum value' })
+  document_type?: DocumentType;
+
+  @IsString()
+  @IsOptional()
+  external_id?: string;
+
+  @IsOptional()
+  metadata: T;
+
+  @IsBoolean()
+  preloaded: boolean = false;
+
+  /**
+   * Program ID to be related to the Student
+   */
+  @IsString()
+  @IsNotEmpty()
   programID: string;
+
+  @IsString()
+  @IsOptional()
+  inscriptionID?: string;
+
+  @IsString()
+  @IsOptional()
+  membershipID?: string;
+
+  @IsString()
+  @IsOptional()
+  complementID?: string;
+
+  @IsString()
+  @IsOptional()
+  scholarshipID?: string;
+
+  @IsString()
+  @IsOptional()
+  discountID?: string;
+
+  @IsString()
+  @IsOptional()
+  surchargeID?: string;
 }
 
-export interface StudentConcept {
-  [key: string]: unknown;
-}
-
-export class StudentFamilyGroupRS {
-  student_id: string;
-  parent_id: string;
-  full_name: string;
-  is_principal: boolean;
-}
-
-export class StudentCreateRS<T = any> extends Student<T> {
-  id: string;
-  created_at: string;
-  updated_at: string;
-  full_name: string;
-  status: StudentStatus;
-  type: StudentType;
-  enrollment: string;
-  grade: string;
-  group: string;
-  concepts: StudentConcept[];
-  period_id: string;
-  family_group: StudentFamilyGroupRS[];
-}
+export class StudentCreateRS<T = any> extends Student<T> {}

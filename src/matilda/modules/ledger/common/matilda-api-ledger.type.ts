@@ -1,64 +1,221 @@
-import { LedgerPayType, LedgerPrimaryConceptType } from './matilda-api-ledger.enums';
+import {
+  IsArray,
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  Min,
+} from 'class-validator';
+import { LedgerPrimaryConceptType } from './matilda-api-ledger.enums';
+import { Type } from 'class-transformer';
 
 export class LedgerItemRQ<T = any> {
+  @IsNumber()
+  @IsNotEmpty()
+  @Min(0)
   amount: number;
-  pay_date: string;
-  external_id?: string;
-  metadata?: T | string;
-}
 
-export class LedgerDiscountItemRQ<T = any> {
-  amount: number;
-  pay_type: LedgerPayType;
+  @IsString()
+  @IsNotEmpty()
   pay_date: string;
-  on_inscription: boolean;
-  on_memberships: boolean;
-  external_id?: string;
-  metadata?: T | string;
-}
 
-export class LedgerScholarshipItemRQ<T = any> {
-  amount: number;
-  pay_type: LedgerPayType;
-  pay_date: string;
-  on_inscription: boolean;
-  on_memberships: boolean;
+  @IsString()
+  @IsOptional()
   external_id?: string;
-  metadata?: T | string;
+
+  @IsString()
+  @IsOptional()
+  metadata?: T;
 }
 
 export class LedgerCreateRQ<T = any> {
+  @IsString()
+  @IsNotEmpty()
   program_id: string;
+
+  @IsString()
+  @IsNotEmpty()
   student_id: string;
+
+  @IsEnum(LedgerPrimaryConceptType)
   primary_concept_type: LedgerPrimaryConceptType;
+
+  @IsString()
+  @IsOptional()
   primary_concept_id?: string;
+
+  @IsArray()
+  @IsNotEmpty()
   items: LedgerItemRQ<T>[];
+
+  @IsString()
+  @IsOptional()
   scholarship_id?: string;
-  scholarship_items?: LedgerScholarshipItemRQ<T>[];
+
+  @IsString()
+  @IsOptional()
   discount_id?: string;
-  discount_items?: LedgerDiscountItemRQ<T>[];
+
+  @IsString()
+  @IsOptional()
   external_id?: string;
-  metadata?: T | string;
+
+  @IsString()
+  @IsOptional()
+  metadata?: T;
 }
 
-export class LedgerEntryRS<T = any> {
+export class LedgerStudentRS {
+  @IsString()
+  @IsNotEmpty()
   id: string;
-  concept_type: string;
+
+  @IsString()
+  @IsNotEmpty()
+  created_at: string;
+
+  @IsString()
+  @IsNotEmpty()
+  updated_at: string;
+
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @IsString()
+  @IsNotEmpty()
+  first_last_name: string;
+
+  @IsString()
+  @IsNotEmpty()
+  second_last_name: string;
+
+  @IsString()
+  @IsNotEmpty()
+  full_name: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  matti_id: number;
+
+  @IsString()
+  @IsNotEmpty()
+  type: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  enrollment: number;
+
+  @IsString()
+  @IsNotEmpty()
+  external_id: string;
+
+  @IsString()
+  @IsNotEmpty()
+  external_metadata: string;
+
+  @IsString()
+  @IsNotEmpty()
   status: string;
-  date_period: string;
-  due_date: string;
+}
+
+export class LedgerItemRS {
+  @IsString()
+  @IsNotEmpty()
+  id: string;
+
+  @IsString()
+  @IsNotEmpty()
+  created_at: string;
+
+  @IsString()
+  @IsNotEmpty()
+  updated_at: string;
+
+  @IsString()
+  @IsNotEmpty()
   description: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  @Min(0)
   amount: number;
-  pending_amount: number;
-  external_id?: string;
-  external_metadata?: T;
-  metadata?: T;
-  items?: Record<string, unknown>[];
-  student?: Record<string, unknown>;
+
+  @IsString()
+  @IsNotEmpty()
+  amount_type: string;
+
+  @IsString()
+  @IsNotEmpty()
+  concept_type: string;
+
+  @IsString()
+  @IsNotEmpty()
+  due_date: string;
+
+  @IsString()
+  @IsNotEmpty()
+  apply_date: string;
+
+  @IsString()
+  @IsNotEmpty()
+  status: string;
 }
 
 export class LedgerCreateRS<T = any> {
-  data: LedgerEntryRS<T>[];
-}
+  @IsString()
+  @IsNotEmpty()
+  id: string;
 
-export class LedgerRS<T = any> extends LedgerEntryRS<T> {}
+  @IsString()
+  @IsNotEmpty()
+  created_at: string;
+
+  @IsString()
+  @IsNotEmpty()
+  updated_at: string;
+
+  @IsString()
+  @IsNotEmpty()
+  concept_type: string;
+
+  @IsString()
+  @IsNotEmpty()
+  status: string;
+
+  @IsString()
+  @IsNotEmpty()
+  date_period: string;
+
+  @IsString()
+  @IsNotEmpty()
+  due_date: string;
+
+  @IsString()
+  @IsNotEmpty()
+  description: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  @Min(0)
+  amount: number;
+
+  @IsString()
+  @IsOptional()
+  external_id?: string;
+
+  @IsString()
+  @IsOptional()
+  external_metadata?: T;
+
+  @IsString()
+  @IsOptional()
+  @Type(() => LedgerStudentRS)
+  student?: LedgerStudentRS;
+
+  @IsArray()
+  @IsOptional()
+  @Type(() => LedgerItemRS)
+  items?: LedgerItemRS[];
+}
