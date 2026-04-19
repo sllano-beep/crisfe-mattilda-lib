@@ -16,6 +16,10 @@ import { DiscountType } from '../../discount/common/matilda-api-discount.enums';
 export class ScholarshipSearch {
   @IsString()
   @IsNotEmpty()
+  program_id: string;
+
+  @IsString()
+  @IsNotEmpty()
   @MaxLength(256, { message: 'Name must be at most 256 characters' })
   name: string;
 }

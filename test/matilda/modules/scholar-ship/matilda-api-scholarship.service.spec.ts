@@ -52,7 +52,10 @@ describe('MatildaApiScholarshipService', () => {
   describe('getSearch', () => {
     it('Given valid search params and period id When getSearch is called Then it should call ApiService.get with expected request and return the response', async () => {
       const periodId = 'period-001';
-      const params: ScholarshipSearch = { name: 'Scholarship A' };
+      const params: ScholarshipSearch = {
+        name: 'Scholarship A',
+        program_id: 'program-001',
+      };
       const expectedResponse = {
         items: {
           items: 1,
@@ -98,7 +101,10 @@ describe('MatildaApiScholarshipService', () => {
       apiService.get.mockRejectedValue(error);
 
       await expect(
-        service.getSearch('period-001', { name: 'Scholarship A' }),
+        service.getSearch('period-001', {
+          name: 'Scholarship A',
+          program_id: 'program-001',
+        }),
       ).rejects.toThrow('Unexpected network error');
     });
   });
