@@ -26,7 +26,7 @@ export class MatildaApiStudentService {
     const { campusId, apiKey, domain } = this.options;
     const { base, students } = api;
     const url = `${domain}${base}${students}`;
-    return await this.apiService.post<StudentCreateRQ<T>, StudentCreateRS<T>>(
+    return this.apiService.post<StudentCreateRQ<T>, StudentCreateRS<T>>(
       url,
       payload,
       {

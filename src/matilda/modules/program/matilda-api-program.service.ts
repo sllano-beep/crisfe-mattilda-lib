@@ -20,6 +20,7 @@ export class MatildaApiProgramService {
   @MatildaApiErrorHandler()
   @CoreLogger()
   async getSearch<T = any>(
+    periodId: string,
     params: ProgramSearch,
   ): Promise<MatildaApiProgramRS<T>[]> {
     const { campusId, apiKey, domain } = this.options;
@@ -29,6 +30,7 @@ export class MatildaApiProgramService {
       headers: {
         api_key: apiKey,
         campusID: campusId,
+        periodID: periodId,
       },
       params,
     });

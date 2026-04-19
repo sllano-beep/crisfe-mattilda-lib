@@ -10,13 +10,18 @@ export enum DocumentType {
   PPT = 'PPT',
 }
 
-export enum UserStatus {
+export enum PersonStatus {
   ACTIVE = 'active',
   INACTIVE = 'inactive',
   DELETED = 'deleted',
 }
 
-export enum UserType {
+export enum PersonType {
   USER = 'user',
   STUDENT = 'student',
+}
+
+export enum AdjustmentType {
+  INTEGER = 'integer',
+  PERCENTAGE = 'percentage',
 }

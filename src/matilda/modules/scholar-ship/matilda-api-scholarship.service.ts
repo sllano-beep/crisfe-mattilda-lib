@@ -8,12 +8,8 @@ import {
   CreateScholarshipRQ,
   ScholarshipSearch,
   ScholarshipSearchRS,
-  CreateScholarshipRS,
+  ScholarshipRS,
 } from './common/matilda-api-scholarship.type';
-
-export class MatildaApiScholarshipHeaders {
-  campusID?: string;
-}
 
 @Injectable()
 export class MatildaApiScholarshipService {
@@ -25,9 +21,9 @@ export class MatildaApiScholarshipService {
 
   @MatildaApiErrorHandler()
   @CoreLogger()
-  async getScholarships<T = any>(
-    params: ScholarshipSearch,
+  async getSearch<T = any>(
     periodId: string,
+    params: ScholarshipSearch,
   ): Promise<ScholarshipSearchRS<T>> {
     const { campusId, apiKey, domain } = this.options;
     const { base, scholarships } = api;
@@ -38,28 +34,29 @@ export class MatildaApiScholarshipService {
         campusID: campusId,
         periodID: periodId,
       },
-      params,
+      params: params,
     });
   }
 
   @MatildaApiErrorHandler()
   @CoreLogger()
-  async postScholarships<T = any>(
-    payload: CreateScholarshipRQ<T>,
+  async postCreate<T = any>(
     periodId: string,
-  ): Promise<CreateScholarshipRS<T>> {
+    payload: CreateScholarshipRQ<T>,
+  ): Promise<ScholarshipRS<T>> {
     const { campusId, apiKey, domain } = this.options;
     const { base, scholarships } = api;
     const url = `${domain}${base}${scholarships}`;
-    return await this.apiService.post<
-      CreateScholarshipRQ<T>,
-      CreateScholarshipRS<T>
-    >(url, payload, {
-      headers: {
-        api_key: apiKey,
-        campusID: campusId,
-        periodID: periodId,
+    return await this.apiService.post<CreateScholarshipRQ<T>, ScholarshipRS<T>>(
+      url,
+      payload,
+      {
+        headers: {
+          api_key: apiKey,
+          campusID: campusId,
+          periodID: periodId,
+        },
       },
-    });
+    );
   }
 }
