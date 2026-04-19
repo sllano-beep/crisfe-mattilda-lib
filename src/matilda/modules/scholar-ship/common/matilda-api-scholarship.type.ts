@@ -11,7 +11,7 @@ import {
   Min,
   ValidateNested,
 } from 'class-validator';
-import { AdjustmentType } from 'src/matilda/common/matilda.enums';
+import { DiscountType } from '../../discount/common/matilda-api-discount.enums';
 
 export class ScholarshipSearch {
   @IsString()
@@ -67,8 +67,8 @@ export class CreateScholarshipRQ<T = any> {
   @Min(0)
   amount: number;
 
-  @IsEnum(AdjustmentType)
-  type: AdjustmentType;
+  @IsEnum(DiscountType)
+  type: DiscountType;
 
   @IsString()
   @IsOptional()
