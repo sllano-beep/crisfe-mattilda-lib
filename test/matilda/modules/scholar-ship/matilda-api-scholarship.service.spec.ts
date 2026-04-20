@@ -90,7 +90,10 @@ describe('MatildaApiScholarshipService', () => {
             campusID: 'campus-001',
             periodID: periodId,
           },
-          params,
+          params: {
+            program_id: 'program-001',
+            q: 'name=Scholarship A',
+          },
         },
       );
       expect(result).toEqual(expectedResponse);
