@@ -18,6 +18,10 @@ export class ScholarshipSearch {
   @IsNotEmpty()
   @MaxLength(256, { message: 'Name must be at most 256 characters' })
   name: string;
+
+  @IsString()
+  @IsNotEmpty()
+  program_id: string;
 }
 
 export class ScholarshipListPagination {

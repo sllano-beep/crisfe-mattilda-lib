@@ -67,7 +67,9 @@ describe('MatildaApiProgramService', () => {
             campusID: 'campus-001',
             periodID: periodId,
           },
-          params,
+          params: {
+            name: 'Math Program',
+          },
         },
       );
       expect(result).toEqual(expectedResponse);
