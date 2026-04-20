@@ -55,7 +55,7 @@ describe('MatildaApiLedgerService', () => {
         concept_type: 'membership',
         status: 'active',
         date_period: '2026-01',
-        due_date: '2026-01-10',
+        due_date: new Date('2026-01-10'),
         description: 'Membership fee',
         amount: 25,
       } as LedgerCreateRS;
@@ -110,7 +110,7 @@ describe('MatildaApiLedgerService', () => {
           concept_type: 'membership',
           status: 'active',
           date_period: '2026-01',
-          due_date: '2026-01-10',
+          due_date: new Date('2026-01-10'),
           description: 'Membership fee',
           amount: 25,
         },

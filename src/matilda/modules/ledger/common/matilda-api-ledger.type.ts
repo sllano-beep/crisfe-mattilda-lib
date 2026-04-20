@@ -1,5 +1,6 @@
 import {
   IsArray,
+  IsDate,
   IsEnum,
   IsNotEmpty,
   IsNumber,
@@ -188,9 +189,9 @@ export class LedgerCreateRS<T = any> {
   @IsNotEmpty()
   date_period: string;
 
-  @IsString()
+  @IsDate()
   @IsNotEmpty()
-  due_date: string;
+  due_date: Date;
 
   @IsString()
   @IsNotEmpty()

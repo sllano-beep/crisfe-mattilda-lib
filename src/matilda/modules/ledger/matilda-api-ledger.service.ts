@@ -36,11 +36,11 @@ export class MatildaApiLedgerService {
   async postLedger<T = any>(
     periodId: string,
     payload: LedgerCreateRQ<T>,
-  ): Promise<LedgerCreateRS<T>> {
+  ): Promise<LedgerCreateRS<T>[]> {
     const { campusId, apiKey, domain } = this.options;
     const { base, ledger } = api;
     const url = `${domain}${base}${ledger}`;
-    return await this.apiService.post<LedgerCreateRQ<T>, LedgerCreateRS<T>>(
+    return await this.apiService.post<LedgerCreateRQ<T>, LedgerCreateRS<T>[]>(
       url,
       payload,
       {

@@ -34,7 +34,10 @@ export class MatildaApiScholarshipService {
         campusID: campusId,
         periodID: periodId,
       },
-      params: params,
+      params: {
+        program_id: params.program_id,
+        q: `name=${params.name}`,
+      },
     });
   }
 
