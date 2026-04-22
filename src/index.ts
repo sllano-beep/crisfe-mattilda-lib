@@ -1,34 +1,34 @@
-export * from './matilda/matilda.api.module';
-export * from './matilda/common/matilda-base.types';
-export * from './matilda/common/matilda.enums';
+export * from './mattilda/mattilda.api.module';
+export * from './mattilda/common/mattilda-base.types';
+export * from './mattilda/common/mattilda.enums';
 
-export * from './matilda/common/matilda.config';
-export * from './matilda/common/matilda.constants';
-export * from './matilda/common/matilda.types';
+export * from './mattilda/common/mattilda.config';
+export * from './mattilda/common/mattilda.constants';
+export * from './mattilda/common/mattilda.types';
 
-export * from './matilda/utils/matilda.decorator';
-export * from './matilda/utils/matilda.exception';
-export * from './matilda/utils/matilda.utils';
+export * from './mattilda/utils/mattilda.decorator';
+export * from './mattilda/utils/mattilda.exception';
+export * from './mattilda/utils/mattilda.utils';
 
-export * from './matilda/modules/user/common/matilda-api-user.types';
-export * from './matilda/modules/user/matilda-api-user.service';
+export * from './mattilda/modules/user/common/mattilda-api-user.types';
+export * from './mattilda/modules/user/mattilda-user.api.service';
 
-export * from './matilda/modules/period/common/matilda-api-period.types';
-export * from './matilda/modules/period/matilda-api-period.service';
+export * from './mattilda/modules/period/common/mattilda-api-period.types';
+export * from './mattilda/modules/period/mattilda-period.api.service';
 
-export * from './matilda/modules/student/common/matilda-api-student.types';
-export * from './matilda/modules/student/matilda-api-student.service';
+export * from './mattilda/modules/student/common/mattilda-api-student.types';
+export * from './mattilda/modules/student/mattilda-student.api.service';
 
-export * from './matilda/modules/program/common/matilda-api-program.types';
-export * from './matilda/modules/program/matilda-api-program.service';
+export * from './mattilda/modules/program/common/mattilda-api-program.types';
+export * from './mattilda/modules/program/mattilda-program.api.service';
 
-export * from './matilda/modules/discount/common/matilda-api-discount.enums';
-export * from './matilda/modules/discount/common/matilda-api-discount.type';
-export * from './matilda/modules/discount/matilda-api-discount.service';
+export * from './mattilda/modules/discount/common/mattilda-api-discount.enums';
+export * from './mattilda/modules/discount/common/mattilda-api-discount.type';
+export * from './mattilda/modules/discount/mattilda-discount.api.service';
 
-export * from './matilda/modules/scholar-ship/common/matilda-api-scholarship.type';
-export * from './matilda/modules/scholar-ship/matilda-api-scholarship.service';
+export * from './mattilda/modules/scholarship/common/mattilda-api-scholarship.types';
+export * from './mattilda/modules/scholarship/mattilda-scholarship.api.service';
 
-export * from './matilda/modules/ledger/common/matilda-api-ledger.enums';
-export * from './matilda/modules/ledger/common/matilda-api-ledger.type';
-export * from './matilda/modules/ledger/matilda-api-ledger.service';
+export * from './mattilda/modules/ledger/common/mattilda-api-ledger.enums';
+export * from './mattilda/modules/ledger/common/mattilda-api-ledger.type';
+export * from './mattilda/modules/ledger/mattilda-ledger.api.service';
