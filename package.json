@@ -1,7 +1,7 @@
 {
-  "name": "@crisfe/matilda",
+  "name": "@crisfe/mattilda",
   "version": "1.1.0",
-  "description": "Matilda Api libs",
+  "description": "Mattilda Api libs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [

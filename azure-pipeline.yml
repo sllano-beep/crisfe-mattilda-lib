@@ -28,5 +28,5 @@ resources:
 extends:
   template: library-pipeline.yml@devops-templates
   parameters:
-    libraryName: "@crisfe/matilda"
+    libraryName: "@crisfe/mattilda"
     libraryDir: "."
