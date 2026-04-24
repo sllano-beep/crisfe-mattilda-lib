@@ -23,7 +23,7 @@ export * from './mattilda/modules/program/common/mattilda-api-program.types';
 export * from './mattilda/modules/program/mattilda-program.api.service';
 
 export * from './mattilda/modules/discount/common/mattilda-api-discount.enums';
-export * from './mattilda/modules/discount/common/mattilda-api-discount.type';
+export * from './mattilda/modules/discount/common/mattilda-api-discount.types';
 export * from './mattilda/modules/discount/mattilda-discount.api.service';
 
 export * from './mattilda/modules/scholarship/common/mattilda-api-scholarship.types';

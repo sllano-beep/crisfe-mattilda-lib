@@ -7,7 +7,9 @@ import { MattildaApiErrorHandler } from '../../utils/mattilda.decorator';
 import {
   CreateDiscountRQ,
   CreateDiscountRS,
-} from './common/mattilda-api-discount.type';
+  DiscountSearch,
+  DiscountSearchRS,
+} from './common/mattilda-api-discount.types';
 
 @Injectable()
 export class MattildaDiscountApiService {
@@ -19,7 +21,29 @@ export class MattildaDiscountApiService {
 
   @MattildaApiErrorHandler()
   @CoreLogger()
-  async postDiscounts<T = any>(
+  async getSearch<T = any>(
+    periodId: string,
+    params: DiscountSearch,
+  ): Promise<DiscountSearchRS<T>> {
+    const { campusId, apiKey, domain } = this.options;
+    const { base, discounts } = api;
+    const url = `${domain}${base}${discounts}`;
+    return await this.apiService.get<DiscountSearchRS<T>>(url, {
+      headers: {
+        api_key: apiKey,
+        campusID: campusId,
+        periodID: periodId,
+      },
+      params: {
+        program_id: params.program_id,
+        q: `name=${params.name}`,
+      },
+    });
+  }
+
+  @MattildaApiErrorHandler()
+  @CoreLogger()
+  async postCreate<T = any>(
     periodId: string,
     payload: CreateDiscountRQ<T>,
   ): Promise<CreateDiscountRS<T>> {

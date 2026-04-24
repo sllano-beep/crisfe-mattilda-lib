@@ -5,7 +5,7 @@ import { MattildaApiModuleOptions } from '../../../../src/mattilda/common/mattil
 import {
   CreateDiscountRQ,
   CreateDiscountRS,
-} from '../../../../src/mattilda/modules/discount/common/mattilda-api-discount.type';
+} from '../../../../src/mattilda/modules/discount/common/mattilda-api-discount.types';
 import { MattildaDiscountApiService } from '../../../../src/mattilda/modules/discount/mattilda-discount.api.service';
 
 describe('MattildaDiscountApiService', () => {

@@ -4,6 +4,7 @@ import {
   IsBoolean,
   IsEnum,
   IsInt,
+  IsNumber,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -38,10 +39,7 @@ export class ScholarshipListPagination {
   total_pages: number;
 }
 
-export class ScholarshipSearchRS<T = any> {
-  @Type(() => ScholarshipListPagination)
-  items: ScholarshipListPagination;
-
+export class ScholarshipSearchRS<T = any> extends ScholarshipListPagination  {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreateScholarshipRS)
@@ -67,7 +65,7 @@ export class CreateScholarshipRQ<T = any> {
   @IsBoolean()
   apply_to_memberships: boolean;
 
-  @IsInt()
+  @IsNumber()
   @Min(0)
   amount: number;
 
@@ -76,7 +74,6 @@ export class CreateScholarshipRQ<T = any> {
 
   @IsString()
   @IsOptional()
-  @IsNotEmpty()
   external_id?: string;
 
   @IsOptional()
