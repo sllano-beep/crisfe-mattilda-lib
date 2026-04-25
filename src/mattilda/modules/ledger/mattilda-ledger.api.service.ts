@@ -19,7 +19,10 @@ export class MattildaLedgerApiService {
 
   @MattildaApiErrorHandler()
   @CoreLogger()
-  async getLedgerById<T = any>(ledgerId: string): Promise<LedgerCreateRS<T>> {
+  async getLedgerById<T = any>(
+    periodId: string,
+    ledgerId: string,
+  ): Promise<LedgerCreateRS<T>> {
     const { campusId, apiKey, domain } = this.options;
     const { base, ledger } = api;
     const url = `${domain}${base}${ledger}/${ledgerId}`;
@@ -27,6 +30,7 @@ export class MattildaLedgerApiService {
       headers: {
         api_key: apiKey,
         campusID: campusId,
+        periodID: periodId,
       },
     });
   }

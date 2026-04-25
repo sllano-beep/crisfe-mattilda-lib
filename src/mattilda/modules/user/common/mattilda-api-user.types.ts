@@ -79,4 +79,38 @@ export class UserCreateRQ<T = any> {
   metadata?: T;
 }
 
-export class UserCreateRS<T = any> extends User<T> {}
+export class UserCreateRS<T = any> extends User<T> {
+  tax_data: TaxData[];
+}
+
+export class TaxData {
+  @IsString()
+  @IsNotEmpty({ message: 'Name is required' })
+  @MaxLength(200, { message: 'Name must be at most 200 characters' })
+  name: string;
+
+  @IsString()
+  @IsNotEmpty({ message: 'Rfc is required' })
+  @MaxLength(13, { message: 'Rfc must be at most 13 characters' })
+  rfc: string;
+
+  @IsEmail({}, { message: 'Email must be a valid email address' })
+  @IsNotEmpty({ message: 'Email is required' })
+  email: string;
+
+  @IsEnum(DocumentType, { message: 'Document type must be a valid enum value' })
+  @IsNotEmpty({ message: 'Document type is required' })
+  document_type: DocumentType;
+
+  @IsString()
+  @IsNotEmpty({ message: 'Street is required' })
+  street: string;
+
+  @IsString()
+  @IsNotEmpty({ message: 'City is required' })
+  city: string;
+
+  @IsString()
+  @IsNotEmpty({ message: 'State is required' })
+  state: string;
+}

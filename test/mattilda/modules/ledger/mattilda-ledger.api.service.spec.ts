@@ -48,6 +48,7 @@ describe('MattildaLedgerApiService', () => {
   describe('getLedgerById', () => {
     it('Given a valid ledger id When getLedgerById is called Then it should call ApiService.get with the expected request and return the response', async () => {
       const ledgerId = 'ledger-001';
+      const periodId = 'period-001';
       const expectedResponse = {
         id: ledgerId,
         created_at: '2026-01-01T00:00:00.000Z',
@@ -62,7 +63,7 @@ describe('MattildaLedgerApiService', () => {
 
       apiService.get.mockResolvedValue(expectedResponse);
 
-      const result = await service.getLedgerById(ledgerId);
+      const result = await service.getLedgerById(periodId, ledgerId);
 
       expect(apiService.get).toHaveBeenCalledTimes(1);
       expect(apiService.get).toHaveBeenCalledWith(
@@ -71,6 +72,7 @@ describe('MattildaLedgerApiService', () => {
           headers: {
             api_key: 'test-api-key',
             campusID: 'campus-001',
+            periodID: 'period-001',
           },
         },
       );
@@ -81,9 +83,9 @@ describe('MattildaLedgerApiService', () => {
       const error = new Error('Unexpected network error');
       apiService.get.mockRejectedValue(error);
 
-      await expect(service.getLedgerById('ledger-001')).rejects.toThrow(
-        'Unexpected network error',
-      );
+      await expect(
+        service.getLedgerById('period-001', 'ledger-001'),
+      ).rejects.toThrow('Unexpected network error');
     });
   });
 

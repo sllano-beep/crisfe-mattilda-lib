@@ -35,4 +35,22 @@ export class MattildaUserApiService {
       },
     );
   }
+
+  @MattildaApiErrorHandler()
+  @CoreLogger()
+  async getById<T = any>(
+    periodId: string,
+    userId: string,
+  ): Promise<UserCreateRS<T>> {
+    const { campusId, apiKey, domain } = this.options;
+    const { base, users } = api;
+    const url = `${domain}${base}${users}/${userId}`;
+    return await this.apiService.get<UserCreateRS<T>>(url, {
+      headers: {
+        api_key: apiKey,
+        campusID: campusId,
+        periodID: periodId,
+      },
+    });
+  }
 }

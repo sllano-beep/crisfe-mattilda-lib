@@ -114,14 +114,14 @@ export class LedgerStudentRS {
 
   @IsString()
   @IsNotEmpty()
-  external_metadata: string;
+  metadata: string;
 
   @IsString()
   @IsNotEmpty()
   status: string;
 }
 
-export class LedgerItemRS {
+export class LedgerItemRS<T = any> {
   @IsString()
   @IsNotEmpty()
   id: string;
@@ -153,6 +153,10 @@ export class LedgerItemRS {
 
   @IsString()
   @IsNotEmpty()
+  concept_id: string;
+
+  @IsString()
+  @IsNotEmpty()
   due_date: string;
 
   @IsString()
@@ -162,6 +166,14 @@ export class LedgerItemRS {
   @IsString()
   @IsNotEmpty()
   status: string;
+
+  @IsString()
+  @IsNotEmpty()
+  external_id: string;
+
+  @IsString()
+  @IsOptional()
+  metadata?: T;
 }
 
 export class LedgerCreateRS<T = any> {
@@ -202,21 +214,26 @@ export class LedgerCreateRS<T = any> {
   @Min(0)
   amount: number;
 
+  @IsNumber()
+  @IsNotEmpty()
+  @Min(0)
+  pending_amount: number;
+
   @IsString()
   @IsOptional()
   external_id?: string;
 
   @IsString()
-  @IsOptional()
-  external_metadata?: T;
+  @IsNotEmpty()
+  metadata: T;
 
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   @Type(() => LedgerStudentRS)
-  student?: LedgerStudentRS;
+  student: LedgerStudentRS;
 
   @IsArray()
-  @IsOptional()
-  @Type(() => LedgerItemRS)
-  items?: LedgerItemRS[];
+  @IsNotEmpty()
+  @Type(() => LedgerItemRS<T>)
+  items: LedgerItemRS<T>[];
 }
