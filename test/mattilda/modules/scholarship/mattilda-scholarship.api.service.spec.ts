@@ -57,11 +57,9 @@ describe('MattildaScholarshipApiService', () => {
         program_id: 'program-001',
       };
       const expectedResponse = {
-        items: {
-          items: 1,
-          page: 1,
-          total_pages: 1,
-        },
+        items: 1,
+        page: 1,
+        total_pages: 1,
         data: [
           {
             id: 'sch-001',

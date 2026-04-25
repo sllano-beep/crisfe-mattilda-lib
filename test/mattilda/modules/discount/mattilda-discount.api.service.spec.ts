@@ -5,7 +5,13 @@ import { MattildaApiModuleOptions } from '../../../../src/mattilda/common/mattil
 import {
   CreateDiscountRQ,
   CreateDiscountRS,
+  DiscountSearch,
+  DiscountSearchRS,
 } from '../../../../src/mattilda/modules/discount/common/mattilda-api-discount.types';
+import {
+  DiscountStatus,
+  DiscountType,
+} from '../../../../src/mattilda/modules/discount/common/mattilda-api-discount.enums';
 import { MattildaDiscountApiService } from '../../../../src/mattilda/modules/discount/mattilda-discount.api.service';
 
 describe('MattildaDiscountApiService', () => {
@@ -21,7 +27,7 @@ describe('MattildaDiscountApiService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         MattildaDiscountApiService,
-        { provide: ApiService, useValue: { post: jest.fn() } },
+        { provide: ApiService, useValue: { get: jest.fn(), post: jest.fn() } },
         { provide: MATTILDA_API_MODULE_OPTIONS, useValue: options },
       ],
     }).compile();
@@ -30,19 +36,119 @@ describe('MattildaDiscountApiService', () => {
     apiService = module.get(ApiService);
   });
 
-  describe('postDiscounts', () => {
+  describe('getSearch', () => {
     const periodId = 'period-1';
-    const payload: CreateDiscountRQ = { name: 'Discount', amount: 10 } as any;
+    const params: DiscountSearch = {
+      name: 'Discount A',
+      program_id: 'prm-1',
+    };
+
+    it('Given valid params, When getSearch is called, Then it should call apiService.get with expected headers and query params', async () => {
+      const response: DiscountSearchRS = {
+        items: 1,
+        page: 1,
+        total_pages: 1,
+        data: [
+          {
+            id: 'dsc-1',
+            name: 'Discount A',
+            program_id: 'prm-1',
+            workday: true,
+            apply_to_inscriptions: false,
+            apply_to_memberships: true,
+            status: DiscountStatus.ACTIVE,
+            external_id: '',
+            metadata: {},
+            items: [
+              {
+                amount: 10,
+                type: DiscountType.INTEGER,
+                max_date: 5,
+                from_day: 0,
+                from_month: 0,
+                to_day: 0,
+                to_month: 0,
+                not_apply_with_scholarship: false,
+              },
+            ],
+          },
+        ],
+      };
+      apiService.get.mockResolvedValue(response);
+
+      const result = await service.getSearch(periodId, params);
+
+      expect(apiService.get).toHaveBeenCalledWith(
+        expect.stringContaining('/discounts'),
+        expect.objectContaining({
+          headers: expect.objectContaining({
+            api_key: options.apiKey,
+            campusID: options.campusId,
+            periodID: periodId,
+          }),
+          params: {
+            program_id: params.program_id,
+            q: `name=${params.name}`,
+          },
+        }),
+      );
+      expect(result).toEqual(response);
+    });
+
+    it('Given apiService.get throws error, When getSearch is called, Then it should propagate the error', async () => {
+      apiService.get.mockRejectedValue(new Error('API error'));
+
+      await expect(service.getSearch(periodId, params)).rejects.toThrow(
+        'API error',
+      );
+    });
+  });
+
+  describe('postCreate', () => {
+    const periodId = 'period-1';
+    const payload: CreateDiscountRQ = {
+      name: 'Discount',
+      workday: false,
+      apply_to_inscriptions: false,
+      apply_to_memberships: true,
+      not_apply_with_scholarship: false,
+      program_id: 'prm-1',
+      amount: 10,
+      type: DiscountType.INTEGER,
+      max_date: 5,
+      from_day: 0,
+      from_month: 0,
+      to_day: 0,
+      to_month: 0,
+    };
     const response: CreateDiscountRS = {
       id: 'disc-1',
       name: 'Discount',
-      amount: 10,
-    } as any;
+      program_id: 'prm-1',
+      workday: false,
+      apply_to_inscriptions: false,
+      apply_to_memberships: true,
+      status: DiscountStatus.ACTIVE,
+      external_id: '',
+      metadata: {},
+      items: [
+        {
+          amount: 10,
+          type: DiscountType.INTEGER,
+          max_date: 5,
+          from_day: 0,
+          from_month: 0,
+          to_day: 0,
+          to_month: 0,
+          not_apply_with_scholarship: false,
+        },
+      ],
+    };
 
-    it('Given valid periodId and payload, When postDiscounts is called, Then it should call apiService.post with correct params and return response', async () => {
+    it('Given valid periodId and payload, When postCreate is called, Then it should call apiService.post with correct params and return response', async () => {
       apiService.post.mockResolvedValue(response);
 
-      const result = await service.postDiscounts(periodId, payload);
+      const result = await service.postCreate(periodId, payload);
 
       expect(apiService.post).toHaveBeenCalledWith(
         expect.stringContaining('/discounts'),
@@ -58,40 +164,10 @@ describe('MattildaDiscountApiService', () => {
       expect(result).toEqual(response);
     });
 
-    it('Given null periodId, When postDiscounts is called, Then it should still call apiService.post with null periodID header', async () => {
-      apiService.post.mockResolvedValue(response);
-
-      const result = await service.postDiscounts(null as any, payload);
-
-      expect(apiService.post).toHaveBeenCalledWith(
-        expect.any(String),
-        payload,
-        expect.objectContaining({
-          headers: expect.objectContaining({
-            periodID: null,
-          }),
-        }),
-      );
-      expect(result).toEqual(response);
-    });
-
-    it('Given undefined payload, When postDiscounts is called, Then it should call apiService.post with undefined payload', async () => {
-      apiService.post.mockResolvedValue(response);
-
-      const result = await service.postDiscounts(periodId, undefined as any);
-
-      expect(apiService.post).toHaveBeenCalledWith(
-        expect.any(String),
-        undefined,
-        expect.any(Object),
-      );
-      expect(result).toEqual(response);
-    });
-
-    it('Given apiService.post throws error, When postDiscounts is called, Then it should propagate the error', async () => {
+    it('Given apiService.post throws error, When postCreate is called, Then it should propagate the error', async () => {
       apiService.post.mockRejectedValue(new Error('API error'));
 
-      await expect(service.postDiscounts(periodId, payload)).rejects.toThrow(
+      await expect(service.postCreate(periodId, payload)).rejects.toThrow(
         'API error',
       );
     });
